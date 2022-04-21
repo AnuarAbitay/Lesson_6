@@ -5,8 +5,13 @@ import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -101,6 +106,20 @@ public class LessonTest {
                 text("8 micro-district"),
                 text("NCR Delhi"));
         $("#closeLargeModal").click();
+    }
+
+
+    static Stream<Arguments> thirdTest() {
+        return Stream.of(
+                Arguments.of("first string", List.of(42, 12)),
+                Arguments.of("second string", List.of(20, 30))
+        );
+    }
+
+    @MethodSource("thirdTest")
+    @ParameterizedTest
+    void thirdTest(String first, List<Integer> second) {
+        System.out.println(first + " " + second);
     }
 }
 
